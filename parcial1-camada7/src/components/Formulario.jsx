@@ -13,7 +13,11 @@ const Formulario = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (inputValue.name.length > 3 || inputValue.color.length > 6) {
+    if (
+      inputValue.name.length >= 3 &&
+      inputValue.color.length >= 6 &&
+      inputValue.name.indexOf(" ") !== 0
+    ) {
       setShow(true);
       setErr(false);
     } else {
@@ -23,7 +27,7 @@ const Formulario = () => {
   };
 
   return (
-    <Card>
+    <div className="main-container">
       <form className="form-container" onSubmit={handleSubmit}>
         <label>Ingresa tu nombre:</label>
         <input
@@ -45,14 +49,16 @@ const Formulario = () => {
       </form>
 
       {show && (
-        <div className="data">
-          <h2>Hola {inputValue.name}</h2>
-          <p>Sabemos que tu color favorito es:</p>
-          <div className="color_fav">{inputValue.color}</div>
-        </div>
+        <Card>
+          <div className="data">
+            <h2>Hola {inputValue.name}</h2>
+            <p>Sabemos que tu color favorito es:</p>
+            <div className="color_fav">{inputValue.color}</div>
+          </div>
+        </Card>
       )}
-      {err && <h2> “Por favor chequea que la información sea correcta”</h2>}
-    </Card>
+      {err && <h2>Por favor chequea que la información sea correcta</h2>}
+    </div>
   );
 };
 
